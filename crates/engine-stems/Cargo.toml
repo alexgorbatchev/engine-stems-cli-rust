@@ -1,0 +1,16 @@
+[package]
+name = "engine-stems"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Engine DJ per-sample stems encryption and lossless MP4 container editing"
+
+[dependencies]
+aes = "0.9.3"
+anyhow = "1.0.104"
+ecb = { version = "0.2.1", features = ["alloc"] }
+mp4-atom = { version = "0.16.2", features = ["strict"] }
+mp4box = { version = "0.14.0", default-features = false, features = ["edit"] }
+same-file = "1.0.6"
+tempfile = "3.27.0"
+

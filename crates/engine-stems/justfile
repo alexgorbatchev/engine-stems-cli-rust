@@ -1,0 +1,22 @@
+test:
+    mkdir -p .tmp
+    cargo test --package engine-stems --all-targets
+
+lint:
+    rustfmt --check --edition 2024 --config skip_children=true src/lib.rs src/container.rs src/crypto.rs tests/stems.rs
+    cargo clippy --package engine-stems --all-targets -- -D warnings
+
+coverage:
+    mkdir -p .tmp
+    cargo llvm-cov --package engine-stems --exclude-from-report engine-stems-cli --all-targets --fail-under-lines 90
+
+check: lint test coverage
+
+build:
+    cargo build --package engine-stems --release
+
+fmt:
+    cargo fmt --package engine-stems -- --check
+
+fmt-check:
+    cargo fmt --package engine-stems -- --check

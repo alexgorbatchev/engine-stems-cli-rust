@@ -1,0 +1,30 @@
+[package]
+name = "engine-stems-cli"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Encrypt and decrypt Engine DJ stems samples in MP4 files"
+
+[[bin]]
+name = "stems"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0.104"
+cli-command-kit = { path = "../cli-command-kit" }
+engine-stems = { path = "crates/engine-stems" }
+serde_json = "1.0.154"
+signal-hook = { version = "0.4.5", default-features = false }
+
+[dev-dependencies]
+mp4-atom = "0.16.2"
+tempfile = "3.27.0"
+
+[target.'cfg(unix)'.dev-dependencies]
+rustix = { version = "1.1.5", features = ["fs", "process"] }
+
+
+[workspace]
+members = [".","crates/engine-stems"]
+default-members = [".","crates/engine-stems"]
+resolver = "3"
