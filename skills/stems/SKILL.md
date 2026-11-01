@@ -23,7 +23,7 @@ AGENT=1 stems file encrypt song.m4a song.stems
 | `stems file` | Selects a required conversion. |
 | `stems file encrypt <INPUT> <OUTPUT>` | Required path arguments; encrypts every first-track sample and replaces OUTPUT atomically on success. |
 | `stems file decrypt <INPUT> <OUTPUT>` | Required path arguments; decrypts and validates every first-track sample, then replaces OUTPUT atomically. |
-| `stems skill` | Prints local skill installation instructions and `skills/stems/SKILL.md`; accepts no arguments or command-specific flags. Run the printed install command from the local project directory. |
+| `stems skill` | Prints skill installation instructions and the skill URL; accepts no arguments or command-specific flags. |
 | `stems help [COMMAND]...` | Shows help for the selected command, including `stems help file encrypt`, `stems help file decrypt`, `stems help skill`, and `stems help help`. |
 | `stems file help [COMMAND]...` | Shows group help, including `stems file help encrypt`, `stems file help decrypt`, and `stems file help help`. |
 

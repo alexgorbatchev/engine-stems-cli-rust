@@ -6,8 +6,6 @@ use cli_command_kit::{
 };
 use std::{ffi::OsString, io::Write, path::PathBuf, sync::atomic::AtomicBool};
 
-pub const SKILL_POINTER: &str = "Install the stems skill using the Skills CLI from the local engine-stems-cli project directory:\n\n  npx skills add . --skill stems\n\nSkill:\n\n  skills/stems/SKILL.md\n";
-
 pub fn command() -> Command {
     let operation = |name| {
         Command::new(name)
@@ -51,7 +49,10 @@ pub fn command() -> Command {
 
 pub fn help_options() -> HelpOptions {
     HelpOptions {
-        skill: Some(SKILL_POINTER.into()),
+        skill: Some(
+            cli_command_kit::SkillSource::new("alexgorbatchev/engine-stems-cli-rust", "main")
+                .expect("the fixed skill source names a GitHub repository"),
+        ),
         ..Default::default()
     }
 }
@@ -63,7 +64,7 @@ fn perform(
     mode: Mode,
     cancel: &AtomicBool,
 ) -> Result<()> {
-    if cli_command_kit::write_skill(matches, options, output)? {
+    if cli_command_kit::write_skill(&command(), matches, options, output)? {
         return Ok(());
     }
     if matches.get_flag("version") {

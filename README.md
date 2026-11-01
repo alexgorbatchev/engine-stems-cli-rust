@@ -35,7 +35,7 @@ AGENT=1 stems file decrypt song.stems song.m4a
 stems skill
 ```
 
-The `skill` command prints a local Skills CLI installation command and skill-file path. Run that installation command from the local project directory.
+The `skill` command prints the Skills CLI installation command and the skill URL.
 
 Sample Output from a local MP4 conversion:
 

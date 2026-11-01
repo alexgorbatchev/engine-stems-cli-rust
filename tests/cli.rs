@@ -104,10 +104,7 @@ fn metadata_help_and_usage_preserve_stream_contracts() {
             assert!(err.contains("error:"));
         }
         let (status, out, err) = run(&["stems", "skill"], mode, false);
-        assert_eq!(
-            (status, out.as_str(), err.as_str()),
-            (0, engine_stems_cli::SKILL_POINTER, "")
-        );
+        assert_eq!((status, out.as_str(), err.as_str()), (0, INSTALL_TEXT, ""));
     }
 }
 
@@ -273,10 +270,11 @@ fn skill_covers_live_command_tree_and_local_install_destination() {
         &guide,
     );
     assert!(missing.is_empty(), "{missing:?}");
-    let pointer = engine_stems_cli::SKILL_POINTER;
-    assert!(pointer.contains("npx skills add . --skill stems\n"));
-    let relative = pointer.lines().last().unwrap().trim();
-    assert_eq!(relative, "skills/stems/SKILL.md");
+    let pointer = INSTALL_TEXT;
+    assert!(
+        pointer.contains("npx skills add alexgorbatchev/engine-stems-cli-rust --skill stems\n")
+    );
+    let relative = "skills/stems/SKILL.md";
     assert!(
         std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
             .join(relative)
@@ -330,7 +328,7 @@ fn native_sigint_cancels_after_blocking_input_without_publishing() {
     let deadline = std::time::Instant::now() + std::time::Duration::from_secs(5);
     loop {
         let state = std::fs::read_to_string(format!("/proc/{}/wchan", child.id())).unwrap();
-        if state.trim() == "pipe_read" {
+        if state.trim().ends_with("pipe_read") {
             break;
         }
         if std::time::Instant::now() >= deadline {
@@ -355,3 +353,5 @@ fn native_sigint_cancels_after_blocking_input_without_publishing() {
     assert!(errors.contains("conversion cancelled"));
     assert_eq!(std::fs::read(&output).unwrap(), b"existing");
 }
+
+const INSTALL_TEXT: &str = "Install the stems skill using the Skills CLI:\n\n  npx skills add alexgorbatchev/engine-stems-cli-rust --skill stems\n\nSkill:\n\n  https://github.com/alexgorbatchev/engine-stems-cli-rust/tree/main/skills/stems\n";
